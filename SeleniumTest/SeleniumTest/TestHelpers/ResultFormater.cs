@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace SeleniumTest
+namespace SeleniumTest.TestHelpers
 {
     public class ResultFormater
     {
@@ -14,7 +12,8 @@ namespace SeleniumTest
            
             results.ForEach(result =>
             {
-                stringBuilder.AppendLine($"<div class=\"result {GetClassForHead(result)}\">Page URL: {result.Url} <span class=\"expander\">Expand Result</span>");
+                var disabledRobotsText = result.AreRobotsDisabled ? "<span class=\"disabled-label\">Robots Are Disabled</span>" : "";
+                stringBuilder.AppendLine($"<div class=\"result {GetClassForHead(result)}\"><span class=\"expander\">Expand Result</span>PageTitle:{result.TitleSuccess.Value}  Page URL: {result.Url} {disabledRobotsText}");
                 stringBuilder.AppendLine("<div class=\"hidden content\">");
 
                 if (!result.IsOk && !string.IsNullOrEmpty(result.Message))
